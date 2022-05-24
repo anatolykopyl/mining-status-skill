@@ -134,6 +134,7 @@ const handleHelp = async (event) => {
 
   const text = dedent(`
     Я умею узнавать статус вашей майнинг фермы на пуле baikalmine.com.
+    Для начала работы введите адрес своего кошелька, открыв этот навык на телефоне.
     Если ошиблись с вводом адреса, скажите "сбросить адрес".
   `);
 
@@ -150,12 +151,14 @@ const handleHelp = async (event) => {
 module.exports.handler = async (event) => {
   const {session, request, state} = event;
 
-  if (request.command === 'сбросить адрес') {
-    return handleResetWallet(event);
+  const handlers = {
+    'помощь': handleHelp,
+    'что ты умеешь': handleHelp,
+    'сбросить адрес': handleResetWallet,
   }
-  const helpCommands = ['помощь', 'что ты умеешь'];
-  if (helpCommands.includes(request.command)) {
-    return handleHelp(event);
+
+  if (handlers.hasOwnProperty(request.command)) {
+    return handlers[request.command](event);
   }
 
   if (state.session.awaiting_wallet_input) {
