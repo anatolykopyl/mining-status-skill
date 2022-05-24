@@ -1,13 +1,13 @@
 {
   "name": "mining-status-skill",
   "version": "1.0.0",
-  "description": "",
+  "description": "Навык Алисы для получения статуса майнинга.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "publish": "yc serverless function version create --function-name mining-status-skill --runtime nodejs16 --source-path . --entrypoint index.handler"
   },
   "keywords": [],
-  "author": "",
+  "author": "Anatoly Kopyl <akopyl@radner.ru>",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
